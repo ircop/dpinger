@@ -1,0 +1,8 @@
+[nats]
+url = "nats://discoverer:password@127.0.0.1"
+db-chan = "db"
+ping-chan = "ping"
+
+[log]
+dir = "/var/log/dpinger/"
+debug = true
