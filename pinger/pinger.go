@@ -14,14 +14,14 @@ import (
 )
 
 type PingResult struct {
-	MX			deadlock.Mutex
-	Recieved	int64
-	Alive		bool
-	RTTs		[]int64
-	Min			int64
-	Max			int64
-	Avg			int
-	LossPercent	int
+	MX          deadlock.Mutex
+	Received    int64
+	Alive       bool
+	RTTs        []int64
+	Min         int64
+	Max         int64
+	Avg         int
+	LossPercent int
 }
 
 var runningPings sync.Map
@@ -65,7 +65,7 @@ func (p *PingerDaemon) SendEchos(host string) (PingResult, error) {
 	//}
 	ip := net.ParseIP(host)
 	if ip == nil {
-		return pr, fmt.Errorf("%s is not valid address.", host)
+		return pr, fmt.Errorf("%s is not valid address", host)
 	}
 
 	// send N probes
@@ -98,7 +98,7 @@ func (p *PingerDaemon) SendEchos(host string) (PingResult, error) {
 
 	prInt, ok := runningPings.Load(host)
 	if !ok {
-		return PingResult{}, fmt.Errorf("No running job for %s", host)
+		return PingResult{}, fmt.Errorf("no running job for %s", host)
 	}
 
 	time.Sleep(time.Second * time.Duration(p.Probes))
@@ -157,7 +157,7 @@ func (p *PingerDaemon) listen() {
 				if !pr.Alive {
 					pr.Alive = true
 				}
-				pr.Recieved++
+				pr.Received++
 				pr.RTTs = append(pr.RTTs, delta)
 				pr.MX.Unlock()
 			}
